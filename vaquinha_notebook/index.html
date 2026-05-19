@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajude-me a conquistar meu Nitro 5!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121214;
+            color: #e1e1e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #202024;
+            width: 100%;
+            max-width: 920px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border: 1px solid #323238;
+        }
+
+        /* --- TELA INICIAL --- */
+        .screen {
+            display: none; /* Esconde as telas por padrão */
+        }
+
+        .active {
+            display: block; /* Mostra apenas a tela ativa */
+        }
+
+        h1 {
+            color: #ff4747; /* Vermelho característico da linha Nitro */
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            font-family: 'Bungee', 'Space Grotesk', 'Segoe UI', sans-serif;
+        }
+
+        .notebook-img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #121214;
+            padding: 10px;
+        }
+
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 470px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #121214;
+            overflow: hidden;
+        }
+
+        .banner-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .banner-slide.active {
+            opacity: 1;
+        }
+
+        .banner-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .banner-dots {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 0;
+            padding: 0 10px;
+        }
+
+        .banner-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #ff4747;
+            background-color: #323238;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .banner-dot.active {
+            background-color: #ff4747;
+            transform: scale(1.1);
+        }
+
+        .description {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #c4c4cc;
+            text-align: justify;
+        }
+
+        .specs {
+            background-color: #121214;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ff4747;
+        }
+
+        .specs h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .specs ul {
+            list-style-type: none;
+            font-size: 0.9rem;
+            color: #a8a8b3;
+        }
+
+        .specs li {
+            margin-bottom: 5px;
+        }
+
+        /* --- BOTÕES --- */
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #ff4747;
+            color: #ffffff;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #e03e3e;
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #a8a8b3;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            text-decoration: underline;
+            transition: color 0.2s, background-color 0.2s, transform 0.2s;
+        }
+
+        .btn-secondary:hover {
+            color: #ffffff;
+            background-color: transparent;
+            transform: scale(1.02);
+        }
+
+        /* --- TELA DE PAGAMENTO --- */
+        .payment-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pix-title {
+            font-size: 1.2rem;
+            color: #00b39b; /* Cor do PIX */
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background-color: #ffffff;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            font-weight: bold;
+            border-radius: 8px;
+            border: 4px solid #ffffff;
+        }
+
+        .pix-key-container {
+            background-color: #121214;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            word-break: break-all;
+            border: 1px dashed #323238;
+        }
+
+        .pix-key-container p {
+            font-size: 0.85rem;
+            color: #8d8d99;
+            margin-bottom: 5px;
+        }
+
+        .pix-key {
+            font-family: monospace;
+            font-size: 1rem;
+            color: #00b39b;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .copy-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .copy-btn {
+            background-color: #323238;
+            color: #ffffff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .copy-btn:hover {
+            background-color: #424249;
+            transform: scale(1.02);
+        }
+
+        /* --- SEÇÃO DE BENEFÍCIOS --- */
+        .benefits-section {
+            margin-bottom: 25px;
+        }
+
+        .benefits-title {
+            font-size: 1.4rem;
+            color: #ff4747;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .benefits-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card {
+            background-color: #121214;
+            border: 1px solid #323238;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .benefit-card:hover {
+            border-color: #ff4747;
+            box-shadow: 0 0 16px rgba(255, 71, 71, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .benefit-card h3 {
+            color: #ff4747;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .benefit-card p {
+            color: #a8a8b3;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .benefits-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- ================= TELA INICIAL ================= -->
+        <div id="home-screen" class="screen active">
+            <h1>Vaquinha para o meu Nitro 5</h1>
+            
+            <div class="banner" aria-label="Banner rotativo do notebook">
+                <div class="banner-slide active">
+                    <img src="imgs/image-Photoroom.png" alt="Acer Nitro 5 frontal">
+                </div>
+                <div class="banner-slide">
+                    <img src="imgs/image-Photoroom (1).png" alt="Acer Nitro 5 teclado iluminado">
+                </div>
+                <div class="banner-slide">
+                    <img src="imgs/image-Photoroom (2).png" alt="Acer Nitro 5 traseira">
+                </div>
+                <div class="banner-dots">
+                    <button class="banner-dot active" type="button" onclick="showBannerSlide(0)" aria-label="Mostrar slide 1"></button>
+                    <button class="banner-dot" type="button" onclick="showBannerSlide(1)" aria-label="Mostrar slide 2"></button>
+                    <button class="banner-dot" type="button" onclick="showBannerSlide(2)" aria-label="Mostrar slide 3"></button>
+                </div>
+            </div>
+            
+            <p class="description">
+                Olá, família e amigos! Estou juntando R$ 4.000,00 para comprar um Acer Nitro 5 que vai ajudar diretamente nos meus estudos, nas minhas criações e nos meus projetos de programação. Qualquer apoio faz uma grande diferença e agradeço de coração.
+            </p>
+
+            <div class="benefits-section">
+                <h2 class="benefits-title">Por que esse notebook é ideal para mim?</h2>
+                <div class="benefits-container">
+                    <div class="benefit-card">
+                        <h3>💻 Desempenho para Engenharia</h3>
+                        <p>Com 16GB de RAM, posso rodar programas pesados, compilar código de forma rápida e executar simulações de circuitos sem travamentos. Perfeito para os desafios da minha formação em Engenharia de Computação.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>🎒 Praticidade e Mobilidade</h3>
+                        <p>O Nitro 5 é portátil o suficiente para levar para as aulas, laboratórios e projetos da faculdade. Poderei trabalhar em qualquer lugar, garantindo produtividade tanto em casa quanto na universidade.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="specs">
+                <h3>Meta de contribuição</h3>
+                <ul>
+                    <li>• Valor total: R$ 4.000,00</li>
+                    <li>• Modelo: Acer Nitro 5</li>
+                    <li>• Memória: 16GB de RAM</li>
+                    <li>• Tela: 144Hz para mais fluidez</li>
+                    <li>• Armazenamento: SSD rápido</li>
+                </ul>
+            </div>
+
+            <button class="btn" onclick="changeScreen('payment-screen')">Contribuir com a Vaquinha</button>
+        </div>
+
+        <!-- ================= TELA DE PAGAMENTO ================= -->
+        <div id="payment-screen" class="screen">
+            <h1>Contribuir</h1>
+            
+            <p class="description" style="text-align: center;">
+                Muito obrigado por apoiar o meu objetivo! Você pode realizar a sua contribuição de forma segura utilizando o PIX abaixo.
+            </p>
+
+            <div class="payment-info">
+                <div class="pix-title">Pague com PIX</div>
+                
+                <!-- QR Code - Você pode substituir o link abaixo pela imagem do QR Code do seu banco -->
+                <div class="qr-placeholder">
+                    <img src="imgs/pixqrcode.jpeg" alt="QR Code PIX" style="width: 100%; height: 100%;">
+                </div>
+
+                <div class="pix-key-container">
+                    <p>Chave PIX (CPF):</p>
+                    <span class="pix-key">15883474608</span>
+                    <div class="copy-row">
+                        <button class="copy-btn" type="button" onclick="copyPixKey()">Copiar Chave</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary" onclick="changeScreen('home-screen')">Voltar para a página inicial</button>
+        </div>
+
+    </div>
+
+    <!-- Script simples para alternar entre as telas -->
+    <script>
+        function changeScreen(screenId) {
+            // Esconde todas as telas
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            // Mostra a tela desejada
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        const bannerSlides = document.querySelectorAll('.banner-slide');
+        const bannerDots = document.querySelectorAll('.banner-dot');
+        let currentBannerIndex = 0;
+        let bannerInterval;
+
+        function showBannerSlide(index) {
+            bannerSlides.forEach((slide, slideIndex) => {
+                slide.classList.toggle('active', slideIndex === index);
+            });
+            bannerDots.forEach((dot, dotIndex) => {
+                dot.classList.toggle('active', dotIndex === index);
+            });
+            currentBannerIndex = index;
+        }
+
+        function startBannerRotation() {
+            bannerInterval = setInterval(() => {
+                const nextIndex = (currentBannerIndex + 1) % bannerSlides.length;
+                showBannerSlide(nextIndex);
+            }, 4500);
+        }
+
+        function copyPixKey() {
+            const pixKey = document.querySelector('.pix-key').textContent.trim();
+            navigator.clipboard.writeText(pixKey).then(() => {
+                alert('Chave PIX copiada para a área de transferência!');
+            }).catch(() => {
+                alert('Não foi possível copiar a chave. Tente novamente.');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showBannerSlide(0);
+            startBannerRotation();
+        });
+    </script>
+</body>
+</html>
