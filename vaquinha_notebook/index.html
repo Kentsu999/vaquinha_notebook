@@ -152,6 +152,38 @@
         }
 
         /* --- BOTÕES --- */
+        .progress-wrapper {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .progress-label {
+            font-size: 0.95rem;
+            color: #c4c4cc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 16px;
+            background-color: #323238;
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid #2a2a2f;
+        }
+
+        .progress-fill {
+            width: 11.25%; /* 450 de 4000 = 11.25% */
+            height: 100%;
+            background: linear-gradient(90deg, #ff4747, #ff8a70);
+            border-radius: 999px 0 0 999px;
+            transition: width 0.4s ease;
+        }
+
         .btn {
             display: block;
             width: 100%;
@@ -348,6 +380,16 @@
             <p class="description">
                 Olá, família e amigos! Estou juntando R$ 4.000,00 para comprar um Acer Nitro 5 que vai ajudar diretamente nos meus estudos, nas minhas criações e nos meus projetos de programação. Qualquer apoio faz uma grande diferença e agradeço de coração.
             </p>
+
+            <div class="progress-wrapper" aria-label="Progresso de contribuição">
+                <div class="progress-label">
+                    <span>R$ 450 arrecadados</span>
+                    <span>de R$ 4.000</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
 
             <button class="btn" onclick="changeScreen('payment-screen')">Contribuir com a Vaquinha</button>
 
